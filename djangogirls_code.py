@@ -66,3 +66,41 @@ git init
 
 git config --global user.name "suzyhh"
 git config --global user.email suzyhocking@gmail.com
+
+# This shows info about untracked/modified/staged files, branch status etc
+git status
+
+# Tracks all files in working directory
+git add --all .
+
+# Commit (save) the changes
+git commit -m "Django Girls app, first commit"
+
+# Now we need to push our local git repository to GitHub (make one called my-first-blog)
+git remote add origin https://github.com/suzyhh/my-first-blog.git
+git push -u origin master
+
+# Django ORM and QuerySets
+# In djenv
+python manage.py shell
+# Display all of our posts
+from blog.models import Post
+
+Post.objects.all()
+# Create a new Post object in the database
+# First find the user
+
+from django.contrib.auth.models import User
+User.objects.all()
+# shows the User to be suzy
+me = User.objects.get(username="suzy")
+
+Post.objects.create(author=me, title="Sample title", text="test")
+Post.objects.create(author=me, title="Edgar", text="is floofy")
+Post.objects.create(author=me, title="Prawn", text="is a tiny boy")
+
+# Can filter QuerySets
+# Use two __ it's a django thing
+Post.objects.filter(title__contains='title') 
+
+# Can use something called method-chaining to (e.g.) return posts authored by me, ordered by publishing date
